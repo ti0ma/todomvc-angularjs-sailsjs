@@ -1,7 +1,7 @@
 (function (window) {
-	'use strict';
+  'use strict';
 
-	// Your starting point. Enjoy the ride!
+  // Your starting point. Enjoy the ride!
   var app = angular.module('TodoMvc', ['TodoMvc.controllers', 'ngRoute']);
 
   app.config(['$routeProvider', function($routeProvider) {
