@@ -1,0 +1,12 @@
+{
+  "name": "todomvc-framework-name",
+  "ignore": [
+    "css",
+    "js",
+    "index.html"
+  ],
+  "dependencies": {
+    "angular": "*",
+    "angular-route": "*"
+  }
+}

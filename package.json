@@ -1,0 +1,23 @@
+{
+  "name": "todomvc-angularjs-expressjs",
+  "version": "1.0.0",
+  "author": "Artem Molonosov",
+  "description": "TodoMVC implementation using AngularJS and Express",
+  "license": "WTFPL",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ti0ma/todomvc-angularjs-expressjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ti0ma/todomvc-angularjs-expressjs/issues"
+  },
+  "homepage": "https://github.com/ti0ma/todomvc-angularjs-expressjs"
+}
