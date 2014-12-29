@@ -1,2 +1,4 @@
 node_modules
-frontend/js/lib
+assets/js/dependencies/bower
+www
+.tmp

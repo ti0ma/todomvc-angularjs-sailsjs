@@ -1,0 +1,53 @@
+<section id="todoapp" ng-controller="TodosCtrl">
+  <header id="header">
+      <h1>todos</h1>
+      <form ng-submit="addTodo()">
+          <input ng-model="newTask" id="new-todo" placeholder="What needs to be done?" autofocus>
+      </form>
+  </header>
+  <!-- This section should be hidden by default and shown when there are todos -->
+  <section id="main">
+      <input ng-click="toggleAll()" id="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="todo-list">
+          <li ng-repeat="todo in todos | filter:filterSelected" ng-class="{'completed' : todo.complete, 'editing' : todo.editing}">
+              <div class="view">
+                  <input ng-click="todo.complete = !todo.complete" class="toggle" type="checkbox" ng-checked="todo.complete">
+                  <label ng-dblclick="editTask(todo)">{{todo.task}}</label>
+                  <button ng-click="destroyTask(todo)" class="destroy"></button>
+              </div>
+              <form ng-submit="editSaveTodo(todo)">
+                  <input class="edit" ng-model="todo.task" ng-blur="editSaveTodo(todo)" focus-todo="todo.task === editingTask" ng-value="todo.task">
+              </form>
+          </li>
+      </ul>
+  </section>
+  <!-- This footer should hidden by default and shown when there are todos -->
+  <footer ng-show="todos.length > 0" id="footer">
+      <span id="todo-count"><strong>{{leftCount}}</strong>
+          <ng-pluralize count="leftCount" when="{'0': 'items',
+              '1': 'item',
+              'other': 'items'}">
+          </ng-pluralize>
+          left</span>
+      <!-- Remove this if you don't implement routing -->
+      <ul id="filters">
+          <li>
+              <a ng-class="{'selected' : location.path() === '/'}" href="#/">All</a>
+          </li>
+          <li>
+              <a ng-class="{'selected' : location.path() === '/active'}" href="#/active">Active</a>
+          </li>
+          <li>
+              <a ng-class="{'selected' : location.path() === '/completed'}" href="#/completed">Completed</a>
+          </li>
+      </ul>
+      <button ng-show="completedCount" ng-click="closeCompleted()" id="clear-completed">Clear completed ({{completedCount}})</button>
+  </footer>
+</section>
+<footer id="info">
+  <p>Double-click to edit a todo</p>
+  <!-- Change this out with your name and url ↓ -->
+  <p>Created by <a href="http://github.com/ti0ma">ti0ma</a></p>
+  <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
