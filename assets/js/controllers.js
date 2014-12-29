@@ -2,21 +2,20 @@
 
   var app = angular.module('TodoMvc.controllers', []);
 
-  app.controller('TodosCtrl', ['$scope', '$filter', '$location',
-    function($scope, $filter, $location){
-      $scope.todos = [{
-        complete: false,
-        task: 'Be an Angular GOD!!!'
-      }, {
-        complete: false,
-        task: 'Prepare Angular basic'
-      }, {
-        complete: true,
-        task: 'Setup environment'
-      }];
+  app.controller('TodosCtrl', ['$scope', '$filter', '$location', '$http',
+    function($scope, $filter, $location, $http){
+      $scope.todos = [];
+
+      $http.get('/todo')
+        .success(function (data) {
+          $scope.todos = data;
+        })
+        .error(function(){
+          throw new Error('It seems to be some error with the service');
+        });
 
       $scope.$watch('todos', function () {
-        $scope.leftCount = $filter('filter')($scope.todos, { complete: false }).length;
+        $scope.leftCount = ($filter('filter')($scope.todos, { complete: false }) || '').length;
         $scope.completedCount = $scope.todos.length - $scope.leftCount;
       }, true);
 
@@ -42,6 +41,9 @@
         };
         $scope.newTask = '';
         $scope.todos.push(todo);
+        $http.post('/todo/create', todo).success(function(data){
+          angular.extend(todo, data);
+        });
       };
 
       $scope.editTask = function(todo){
@@ -50,11 +52,20 @@
       };
 
       $scope.editSaveTodo = function(todo){
-        todo.editing = false;
+        if(todo.editing){
+          $http.put('/todo/' + todo.id, todo);
+        }
+        delete todo.editing;
       }
 
       $scope.destroyTask = function(todo){
         $scope.todos.splice($scope.todos.indexOf(todo), 1);
+        $http.delete('/todo', {data: {'id': todo.id}});
+      }
+
+      $scope.toggleDone = function (todo) {
+        todo.complete = !todo.complete;
+        $http.put('/todo/' + todo.id, {'complete': todo.complete});
       }
 
       $scope.toggleAll = function(){
