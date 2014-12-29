@@ -56,5 +56,12 @@
       $scope.destroyTask = function(todo){
         $scope.todos.splice($scope.todos.indexOf(todo), 1);
       }
+
+      $scope.toggleAll = function(){
+        var toggleBool = $scope.leftCount > 0;
+        $scope.todos.forEach(function(todo){
+          todo.complete = toggleBool;
+        });
+      }
     }]);
 })();

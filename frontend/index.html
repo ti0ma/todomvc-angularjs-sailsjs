@@ -19,7 +19,7 @@
             </header>
             <!-- This section should be hidden by default and shown when there are todos -->
             <section id="main">
-                <input id="toggle-all" type="checkbox">
+                <input ng-click="toggleAll()" id="toggle-all" type="checkbox">
                 <label for="toggle-all">Mark all as complete</label>
                 <ul id="todo-list">
                     <li ng-repeat="todo in todos | filter:filterSelected" ng-class="{'completed' : todo.complete, 'editing' : todo.editing}">
